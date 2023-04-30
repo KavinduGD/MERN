@@ -2,9 +2,12 @@ const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv").config();
 const port = process.env.PORT || 5000;
-const router = require("./routes/goalRoutes");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDb = require("./config/db");
+
+//routes
+const goalRouter = require("./routes/goalRoutes");
+const userRouter = require("./routes/userRoutes");
 
 const app = express();
 
@@ -16,7 +19,8 @@ app.use(express.json());
 //body eken ena urlencoded ewata access krnna puluwn karanawa
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/goals", router);
+app.use("/api/goals", goalRouter);
+app.use("/api/users", userRouter);
 
 app.use(errorHandler);
 
